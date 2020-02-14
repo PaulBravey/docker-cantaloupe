@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYSQL_LIB_VERSION=5.1.44
-CANTALOUPE_VERSION=4.0
+CANTALOUPE_VERSION=4.1.4
 GOSU_VERSION=1.10
 OPENJPEG_VERSION=2.3.0
 
@@ -13,6 +13,7 @@ apt-get update
 apt-get install --yes --no-install-recommends apt-utils
 apt-get install --yes --no-install-recommends unzip
 apt-get install --yes --no-install-recommends wget
+apt-get install --yes --no-install-recommends dos2unix
 
 # Install some packages used by the application
 apt-get install --yes --no-install-recommends ca-certificates
@@ -42,6 +43,7 @@ mkdir /cantaloupe/lib
 mkdir /cantaloupe/cache
 mkdir /cantaloupe/logs
 mkdir /cantaloupe/images
+mkdir /cantaloupe/tmp
 
 # Download Cantaloupe
 wget -q http://central.maven.org/maven2/mysql/mysql-connector-java/$MYSQL_LIB_VERSION/mysql-connector-java-$MYSQL_LIB_VERSION.jar -O /cantaloupe/lib/mysql-connector.jar
@@ -72,7 +74,11 @@ mv /tmp/openjpeg-v$OPENJPEG_VERSION-linux-x86_64/lib/* /lib
 rm -Rf /tmp/openjpeg-v$OPENJPEG_VERSION-linux-x86_64
 rm /tmp/openjpeg.tar.gz
 
+# fix entrypoint.sh
+dos2unix /build/entrypoint.sh
+
 # Clean up
 apt-get purge -y --auto-remove unzip
 apt-get purge -y --auto-remove wget
+apt-get purge -y --auto-remove dos2unix
 rm -rf /var/lib/apt/lists/*
