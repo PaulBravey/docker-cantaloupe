@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYSQL_LIB_VERSION=5.1.44
-CANTALOUPE_VERSION=4.1.4
+CANTALOUPE_VERSION=5.0.5
 GOSU_VERSION=1.10
 OPENJPEG_VERSION=2.3.0
 
@@ -11,13 +11,14 @@ export TERM=linux
 # Install some packages used for setup
 apt-get update
 apt-get install --yes --no-install-recommends apt-utils
+apt-get install --yes software-properties-common
 apt-get install --yes --no-install-recommends unzip
 apt-get install --yes --no-install-recommends wget
 apt-get install --yes --no-install-recommends dos2unix
 
 # Install some packages used by the application
 apt-get install --yes --no-install-recommends ca-certificates
-apt-get install --yes openjdk-8-jre-headless
+apt-get install --yes openjdk-11-jre-headless
 apt-get install --yes --no-install-recommends imagemagick
 apt-get install --yes --no-install-recommends ghostscript
 apt-get install --yes --no-install-recommends libmagickcore-6.q16-2-extra
@@ -49,7 +50,7 @@ mkdir /cantaloupe/tmp
 wget -q http://central.maven.org/maven2/mysql/mysql-connector-java/$MYSQL_LIB_VERSION/mysql-connector-java-$MYSQL_LIB_VERSION.jar -O /cantaloupe/lib/mysql-connector.jar
 wget -q https://github.com/medusa-project/cantaloupe/releases/download/v$CANTALOUPE_VERSION/Cantaloupe-$CANTALOUPE_VERSION.zip -O /cantaloupe/cantaloupe.zip
 unzip /cantaloupe/cantaloupe.zip -d /cantaloupe
-mv /cantaloupe/cantaloupe-$CANTALOUPE_VERSION/cantaloupe-$CANTALOUPE_VERSION.war /cantaloupe/cantaloupe.war
+mv /cantaloupe/cantaloupe-$CANTALOUPE_VERSION/cantaloupe-$CANTALOUPE_VERSION.jar /cantaloupe/cantaloupe.jar
 mv /cantaloupe/cantaloupe-$CANTALOUPE_VERSION/delegates.rb.sample /cantaloupe/delegates.rb
 rm -Rf /cantaloupe/cantaloupe-$CANTALOUPE_VERSION
 rm /cantaloupe/cantaloupe.zip

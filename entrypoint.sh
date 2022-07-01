@@ -1,4 +1,5 @@
 #!/bin/bash
+java -version
 
 # Create Cantaloupe User
 groupadd -r -g $CANTALOUPE_GID cantaloupe
@@ -13,4 +14,4 @@ chown -R cantaloupe:cantaloupe /cantaloupe
 # Correct permissions on /dev/stdout before we drop privledges
 chown cantaloupe:cantaloupe /dev/stdout
 
-gosu cantaloupe:cantaloupe java -cp /cantaloupe/lib/mysql-connector.jar:/cantaloupe/cantaloupe.war -Dcantaloupe.config=$PROPERTIES_FILE $JAVA_OPTS edu.illinois.library.cantaloupe.StandaloneEntry
+gosu cantaloupe:cantaloupe java -cp /cantaloupe/lib/mysql-connector.jar:/cantaloupe/cantaloupe.jar -Dcantaloupe.config=$PROPERTIES_FILE $JAVA_OPTS edu.illinois.library.cantaloupe.StandaloneEntry
